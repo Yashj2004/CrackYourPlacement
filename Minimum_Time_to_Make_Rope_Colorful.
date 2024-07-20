@@ -1,0 +1,19 @@
+class Solution:
+    def minCost(self, colors: str, neededTime: List[int]) -> int:
+        color=[]
+        for i in range(len(colors)):
+            color.append(colors[i])
+        ans=0
+        i=0
+        while i<len(color)-1:
+            if color[i]==color[i+1]:
+                ans+=min(neededTime[i],neededTime[i+1])
+                if neededTime[i]>neededTime[i+1]:
+                    color.pop(i+1)
+                    neededTime.pop(i+1)
+                else:
+                    color.pop(i)
+                    neededTime.pop(i)
+            else:
+                i+=1
+        return ans
