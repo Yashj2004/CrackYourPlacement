@@ -1,0 +1,31 @@
+class Solution:
+    def reversePairs(self, nums: List[int]) -> int:
+        self.count=0
+        def merge (left,right):
+            i,j=0,0
+            while i<len(left) and j<len(right):
+                if left[i]>(2 *right[j]):
+                    self.count+=len(left)-i
+                    j+=1
+                else:
+                    i+=1
+            l,r=0,0
+            res=[]
+            while l<len(left)and r<len(right):
+                if left[l]<right[r]:
+                    res.append(left[l])
+                    l+=1
+                else:
+                    res.append(right[r])
+                    r+=1
+            return res + left[l:]+right[r:]
+        def divide(nums):
+            if len(nums)<=1:
+                return nums
+            mid=len(nums)//2
+            left=divide(nums[:mid])
+            right=divide(nums[mid:])
+            return merge(left,right)
+        nums=divide(nums)
+        return self.count
+            
